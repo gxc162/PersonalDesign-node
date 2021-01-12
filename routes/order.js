@@ -32,6 +32,14 @@ order.get('/findByCustomerId',(req,res)=>{
         res.send(a);
     })
 })
+order.get('/findByOrderStatus',(req,res)=>{
+    // console.log(req.query)
+    //调用dao层的方法
+    orderDB.findByOrderStatus(req.query,(results)=>{
+        var a = {data:results,message:"成功"}
+        res.send(a);
+    })
+})
 order.get('/deleteById',(req,res)=>{
     // console.log(req.query)
     //调用dao层的方法

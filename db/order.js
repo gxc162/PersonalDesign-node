@@ -40,6 +40,18 @@ let findByCustomerId = (param,handle)=>{
         })
     })
 }
+// 通过状态检索订单信息
+let findByOrderStatus = (param,handle)=>{
+    pool.getConnection((err,conn)=>{
+        if(err) throw err;
+        let sql = 'select * from ej_order where status=?'
+        conn.query(sql,[param.status],(err,results)=>{
+            if(err) throw err;
+            handle(results);
+            conn.release();
+        })
+    })
+}
 /**
  * 通过ID删除顾客信息
  * @param {Object} param {id:1001}
@@ -134,6 +146,7 @@ let mohuQuery = (param,handle)=>{
 module.exports = {
     findAll,
     findByCustomerId,
+    findByOrderStatus,
     deleteById,
     saveOrUpdate,
     batchDelete,
